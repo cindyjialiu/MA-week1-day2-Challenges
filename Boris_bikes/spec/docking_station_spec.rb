@@ -46,6 +46,15 @@ describe DockingStation do
     expect(subject.arr).to all(be_instance_of Bike)
     expect(subject.arr.length).to be DEFAULT_CAPACITY
   }
+
+  it {
+    @capacity = 24
+    docking_station = DockingStation.new(24)
+    docking_station.arr = (1..24).map { |_i| Bike.new }
+    expect { docking_station.dock(Bike.new) }.to raise_error('Sorry, the capacity of the station was already filled')
+    expect(docking_station.arr).to all(be_instance_of Bike)
+    expect(docking_station.arr.length).to be 24
+  }
   # type checking
   # it { should respond_to(:dock).with(1).argument }
 end

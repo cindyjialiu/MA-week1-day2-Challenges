@@ -1,8 +1,10 @@
 class DockingStation
   DEFAULT_CAPACITY = 20
   attr_accessor :arr
-
-  def initialize
+  attr_reader :capacity
+  def initialize(capacity = DEFAULT_CAPACITY)
+    @capacity = capacity
+    #capacity = gets.chomp
     @arr = []
   end
 
@@ -35,7 +37,7 @@ class DockingStation
   private
 
   def full?
-    @arr.length >= DEFAULT_CAPACITY
+    @arr.length >= @capacity
   end
 
   # def dock1
