@@ -1,11 +1,10 @@
 class DockingStation
+  DEFAULT_CAPACITY = 20
   attr_accessor :arr
 
   def initialize
     @arr = []
   end
-
-
 
   # def release_bike#release_bike method separates dock_empty? and release_bike1 methods
   # #so we can test each method indepandently
@@ -14,33 +13,34 @@ class DockingStation
 
   def release_bike
     if dock_empty?
-      raise "Sorry, no bike in the dock"
+      raise 'Sorry, no bike in the dock'
     else
-      puts "Yes, you can get a bike"
+      puts 'Yes, you can get a bike'
       Bike.new
     end
   end
 
- def dock(bike)
-   fail "Sorry, the capacity of the station was already filled" if full?
-   @arr.push(bike)
-   puts "This bike is now in the station"
- end
+  def dock(bike)
+    raise 'Sorry, the capacity of the station was already filled' if full?
+    @arr.push(bike)
+    puts 'This bike is now in the station'
+  end
 
-private
+  private
+
   def dock_empty?
-    @arr.length == 0
+    @arr.empty?
   end
 
-private
+  private
+
   def full?
-    @arr.length >= 20
+    @arr.length >= DEFAULT_CAPACITY
   end
 
- # def dock1
- #   dock(full?)
- # end
-
+  # def dock1
+  #   dock(full?)
+  # end
 end
 
 class Bike
