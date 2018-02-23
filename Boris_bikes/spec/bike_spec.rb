@@ -1,4 +1,4 @@
 require './lib/docking_station.rb'
 describe Bike do
-  it { subject.respond_to?('working?') }
+  it { expect(subject.working?).to be true }
 end
