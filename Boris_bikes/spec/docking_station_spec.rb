@@ -1,8 +1,9 @@
 require './lib/docking_station.rb'
 
 describe DockingStation do
-  bike = Bike.new
-
+  it "tests docking_station" do
+    bike_double = double :bike
+  end
   # type checking
   # it { should respond_to(:release_bike, :dock_empty?) }
 
@@ -40,31 +41,35 @@ describe DockingStation do
 
   # dock test
   it {
+    bike_double = double :bike
     DEFAULT_CAPACITY = 20
-    subject.arr = (1..DEFAULT_CAPACITY).map { |_i| Bike.new }
-    expect { subject.dock(Bike.new) }.to raise_error('Sorry, the capacity of the station was already filled')
-    expect(subject.arr).to all(be_instance_of Bike)
+    subject.arr = (1..DEFAULT_CAPACITY).map { |_i| bike_double }
+    expect { subject.dock(bike_double) }.to raise_error('Sorry, the capacity of the station was already filled')
+    expect(subject.arr).to all(be bike_double)
     expect(subject.arr.length).to be DEFAULT_CAPACITY
   }
 
   it {
+    bike_double = double :bike
     @capacity = 24
     docking_station = DockingStation.new(24)
-    docking_station.arr = (1..24).map { |_i| Bike.new }
-    expect { docking_station.dock(Bike.new) }.to raise_error('Sorry, the capacity of the station was already filled')
-    expect(docking_station.arr).to all(be_instance_of Bike)
+    docking_station.arr = (1..24).map { |_i| bike_double }
+    expect { docking_station.dock(bike_double) }.to raise_error('Sorry, the capacity of the station was already filled')
+    expect(docking_station.arr).to all(be bike_double)
     expect(docking_station.arr.length).to be 24
   }
 
   it 'should return false if bike is broken' do
+    bike_double = double :bike
     docking_station = DockingStation.new
-    broken_bike = Bike.new
+    broken_bike = bike_double
     expect(docking_station.report(broken_bike)).to eq [broken_bike]
   end
 
   it 'should not release if bike is broken' do
+    bike_double = double :bike
     docking_station = DockingStation.new
-    broken_bike = Bike.new
+    broken_bike = bike_double
     docking_station.report(broken_bike)
     docking_station.dock(broken_bike)
     expect { docking_station.release_bike }.to raise_error('Cant release broken bike')
