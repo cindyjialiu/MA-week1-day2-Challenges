@@ -55,6 +55,35 @@ describe DockingStation do
     expect(docking_station.arr).to all(be_instance_of Bike)
     expect(docking_station.arr.length).to be 24
   }
+
+  it 'should return false if bike is broken' do
+    docking_station = DockingStation.new
+    broken_bike = Bike.new
+    expect(docking_station.report(broken_bike)).to eq [broken_bike]
+  end
+
+  it 'should not release if bike is broken' do
+    docking_station = DockingStation.new
+    broken_bike = Bike.new
+    docking_station.report(broken_bike)
+    docking_station.dock(broken_bike)
+    expect { docking_station.release_bike }.to raise_error('Cant release broken bike')
+  end
+
+  # it 'should release a bike if bike isnt broken' do
+  #   docking_station = DockingStation.new
+  #   broken_bike = Bike.new
+  #   working_bike = Bike.new
+  #   docking_station.dock(working_bike)
+  #   docking_station.report(broken_bike)
+  #   docking_station.dock(broken_bike)
+  #   expect (docking)
+  # end
+  # it {
+  #   docking_station = DockingStation.new
+  #   broken_bike = Bike.new
+  #   expect(docking_station.dock(broken_bike, broken)).to
+  # }
   # type checking
   # it { should respond_to(:dock).with(1).argument }
 end
